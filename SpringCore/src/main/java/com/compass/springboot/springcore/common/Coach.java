@@ -1,4 +1,4 @@
-package com.compass.springboot.springcore;
+package com.compass.springboot.springcore.common;
 
 public interface Coach {
 
