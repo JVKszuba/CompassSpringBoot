@@ -29,8 +29,30 @@ public class HibernateCrudApplication {
 
             //queryForStudentsByLastName(studentDAO);
 
-            updateStudent(studentDAO);
+            //updateStudent(studentDAO);
+
+            //deleteStudent(studentDAO);
+
+            deleteAllStudents(studentDAO);
         };
+    }
+
+    private void deleteAllStudents(StudentDAO studentDAO) {
+
+        System.out.println("Deleting all students");
+        int rowsDeleted = studentDAO.deleteAll();
+
+        System.out.println("Deleted rows count: " + rowsDeleted);
+    }
+
+    private void deleteStudent(StudentDAO studentDAO) {
+
+        Student student = readStudent(studentDAO);
+
+        int id = student.getId();
+        System.out.println("Deleting student with id: " + id);
+
+        studentDAO.deleteById(id);
     }
 
     private void updateStudent(StudentDAO studentDAO) {
