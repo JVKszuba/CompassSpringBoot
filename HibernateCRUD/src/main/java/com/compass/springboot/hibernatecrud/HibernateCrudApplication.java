@@ -27,8 +27,22 @@ public class HibernateCrudApplication {
 
             //queryForStudents(studentDAO);
 
-            queryForStudentsByLastName(studentDAO);
+            //queryForStudentsByLastName(studentDAO);
+
+            updateStudent(studentDAO);
         };
+    }
+
+    private void updateStudent(StudentDAO studentDAO) {
+
+        Student student = readStudent(studentDAO);
+
+        System.out.println("Updating student ...");
+        student.setFirstName("Scooby");
+
+        studentDAO.update(student);
+
+        System.out.println("Updated student ..." + student);
     }
 
     private void queryForStudentsByLastName(StudentDAO studentDAO) {
@@ -45,7 +59,7 @@ public class HibernateCrudApplication {
         for (Student student : students) {System.out.println(student);}
     }
 
-    private void readStudent(StudentDAO studentDAO) {
+    private Student readStudent(StudentDAO studentDAO) {
 
         int id = createStudent(studentDAO);
 
@@ -53,6 +67,8 @@ public class HibernateCrudApplication {
         Student student = studentDAO.findById(id);
 
         System.out.println("Found the student: " + student);
+
+        return student;
     }
 
     private int createStudent(StudentDAO studentDAO) {
