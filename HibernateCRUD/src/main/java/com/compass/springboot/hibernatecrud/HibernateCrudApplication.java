@@ -21,7 +21,7 @@ public class HibernateCrudApplication {
 
         return runner -> {
 
-            //createStudent(studentDAO);
+            createStudent(studentDAO);
 
             //readStudent(studentDAO);
 
@@ -33,7 +33,7 @@ public class HibernateCrudApplication {
 
             //deleteStudent(studentDAO);
 
-            deleteAllStudents(studentDAO);
+            //deleteAllStudents(studentDAO);
         };
     }
 
