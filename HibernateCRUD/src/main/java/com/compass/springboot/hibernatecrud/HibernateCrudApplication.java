@@ -17,10 +17,24 @@ public class HibernateCrudApplication {
     @Bean
     public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 
-        return runner -> createStudent(studentDAO);
+        return runner -> {
+
+            //createStudent(studentDAO);
+            readStudent(studentDAO);
+        };
     }
 
-    private void createStudent(StudentDAO studentDAO) {
+    private void readStudent(StudentDAO studentDAO) {
+
+        int id = createStudent(studentDAO);
+
+        System.out.println("Retrieving student data with id ...");
+        Student student = studentDAO.findById(id);
+
+        System.out.println("Found the student: " + student);
+    }
+
+    private int createStudent(StudentDAO studentDAO) {
 
         System.out.println("Creating new student object ...");
         Student student = new Student("Paul", "Doe", "paul@gmail.com");
@@ -28,6 +42,9 @@ public class HibernateCrudApplication {
         System.out.println("Saving student object ...");
         studentDAO.save(student);
 
-        System.out.println("Saved student. Generated id: " + student.getId());
+        int id = student.getId();
+        System.out.println("Saved student. Generated id: " + id);
+
+        return id;
     }
 }
