@@ -1,7 +1,7 @@
 package com.compass.springboot.restcrud.rest;
 
-import com.compass.springboot.restcrud.dao.EmployeeDAO;
 import com.compass.springboot.restcrud.entity.Employee;
+import com.compass.springboot.restcrud.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +12,16 @@ import java.util.List;
 @RequestMapping("/api2")
 public class EmployeeRestController {
 
-    private EmployeeDAO employeeDAO;
+    private EmployeeService employeeService;
 
-    public EmployeeRestController(EmployeeDAO employeeDAO) {
+    public EmployeeRestController(EmployeeService employeeService) {
 
-        this.employeeDAO = employeeDAO;
+        this.employeeService = employeeService;
     }
 
     @GetMapping("/employees")
     public List<Employee> findAll() {
 
-        return employeeDAO.findAll();
+        return employeeService.findAll();
     }
 }
