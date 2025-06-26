@@ -96,7 +96,7 @@ public class EmployeeRestController {
         try { employee = employeeService.findById(employeeId);}
         catch (Exception e) {throw new RuntimeException("Employee not found - " + employeeId);}
 
-        employeeService.deleteById(employee);
+        employeeService.deleteById(employeeId);
 
         return "Deleted employee id - " + employeeId;
     }
