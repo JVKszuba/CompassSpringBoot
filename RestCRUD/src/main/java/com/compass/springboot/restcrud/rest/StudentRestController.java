@@ -1,11 +1,12 @@
 package com.compass.springboot.restcrud.rest;
 
 import com.compass.springboot.restcrud.entity.Student;
+import com.compass.springboot.restcrud.exception.StudentNotFoundException;
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,36 @@ public class StudentRestController {
     @GetMapping("/students/{studentId}")
     public Student getStudent(@PathVariable("studentId") String studentId) {
 
-        return students.get(Integer.parseInt(studentId));
+        Student student;
+
+        try {student = students.get(Integer.parseInt(studentId));}
+        catch (IndexOutOfBoundsException e) {throw new StudentNotFoundException("Student id not found: " + studentId);}
+        catch (NumberFormatException e) {throw new NumberFormatException("Invalid id: " + studentId);}
+
+        return student;
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleStudentNotFoundException(StudentNotFoundException e) {
+
+        StudentErrorResponse response = new StudentErrorResponse();
+
+        response.setStatus(HttpStatus.NOT_FOUND.value());
+        response.setMessage(e.getMessage());
+        response.setTimestamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleStudentGenericException(NumberFormatException e) {
+
+        StudentErrorResponse response = new StudentErrorResponse();
+
+        response.setStatus(HttpStatus.BAD_REQUEST.value());
+        response.setMessage(e.getMessage());
+        response.setTimestamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }
