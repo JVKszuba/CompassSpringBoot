@@ -12,6 +12,6 @@ public class DemoController {
 
         model.addAttribute("time", java.time.LocalDateTime.now());
 
-        return "helloworld";
+        return "helloworld.backup";
     }
 }
