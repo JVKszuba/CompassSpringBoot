@@ -1,0 +1,15 @@
+<!Doctype html>
+<html xmlns:ng="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <title>Hello World - Input Form</title>
+    </head>
+    <body>
+        <form th:action = "@{/processFormUpperCase}" method = "GET">
+
+            <input type = "text" name = "studentName" placeholder = "What's your name?"/>
+            <input type = "submit" value = "Submit"/>
+
+        </form>
+    </body>
+</html>
