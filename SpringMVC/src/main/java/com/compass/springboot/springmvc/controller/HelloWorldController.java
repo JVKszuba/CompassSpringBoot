@@ -3,13 +3,23 @@ package com.compass.springboot.springmvc.controller;
 import com.compass.springboot.springmvc.model.Student;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloWorldController {
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+
+        StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
+
+        binder.registerCustomEditor(String.class, stringTrimmer);
+    }
 
     @GetMapping("/showForm")
     public String showForm(Model model) {
