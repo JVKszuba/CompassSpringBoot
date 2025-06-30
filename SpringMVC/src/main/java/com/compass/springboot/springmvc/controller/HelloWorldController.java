@@ -1,24 +1,29 @@
 package com.compass.springboot.springmvc.controller;
 
+import com.compass.springboot.springmvc.model.Student;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class HelloWorldController {
 
-    @RequestMapping("/showForm")
-    public String showForm() {
+    @GetMapping("/showForm")
+    public String showForm(Model model) {
+
+        model.addAttribute("student", new Student());
 
         return "helloworld_form";
     }
 
-    @RequestMapping("/processForm")
-    public String processForm() {
+    @PostMapping("/processForm")
+    public String processForm(@Valid @ModelAttribute("student") Student student, BindingResult result) {
 
-        return "helloworld";
+        if (result.hasErrors()) return "helloworld_form";
+        else return "helloworld";
     }
     
     @RequestMapping("/processFormUpperCase")

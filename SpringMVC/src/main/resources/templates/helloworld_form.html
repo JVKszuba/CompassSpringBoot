@@ -1,13 +1,31 @@
 <!Doctype html>
-<html xmlns:ng="http://www.thymeleaf.org">
+<html xmlns:ng="http://www.thymeleaf.org" lang = "pt-br">
     <head>
         <meta charset="utf-8">
-        <title>Hello World - Input Form</title>
+        <title>Student Registration Form</title>
+
+        <style> .error {color: red} </style>
     </head>
     <body>
-        <form th:action = "@{/processFormRequestParam}" method = "GET">
 
-            <input type = "text" name = "studentName" placeholder = "What's your name?"/>
+        <i>Fill out the form. Asterisk (*) means required.</i>
+
+        <br><br>
+
+        <form th:action = "@{/processForm}" th:object = "${student}" method = "post">
+
+            First name (*): <label><input type = "text" th:field = "*{firstName}"/></label>
+
+            <span th:if = "${#fields.hasErrors('firstName')}" th:errors = "*{firstName}" class = "error"></span>
+
+            <br><br>
+
+            Last name (*): <label><input type = "text" th:field = "*{lastName}"/></label>
+
+            <span th:if = "${#fields.hasErrors('lastName')}" th:errors = "*{lastName}" class = "error"></span>
+
+            <br><br>
+
             <input type = "submit" value = "Submit"/>
 
         </form>

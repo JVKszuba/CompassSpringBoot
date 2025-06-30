@@ -2,21 +2,11 @@
 <html xmlns:ng="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
-        <title>Thymeleaf Demo</title>
+        <title>Student Confirmation</title>
     </head>
     <body>
 
-        Hello World of Spring!
-
-        <br/>
-        <br/>
-
-        Student name: <span th:text = "${param.studentName}"></span>
-
-        <br/>
-        <br/>
-
-        The message: <span th:text = "${message}"></span>
+        The student is confirmed: <span th:text = "${student.firstName} + ' ' + ${student.lastName}"></span>
 
     </body>
 </html>
